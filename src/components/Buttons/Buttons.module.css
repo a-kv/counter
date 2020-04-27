@@ -1,20 +1,9 @@
-.App {
+.buttons {
   display: flex;
-  flex-direction: column;
+
   text-align: center;
   justify-content: center;
-  background-color: #282c34;
-  color: #61dafb;
-  height: 100vh;
-
-
-  border-color: #61dafb;
-
-}
-
-.red{
-  color: red;
-  font-size: 1.6em;
+/*width: 200px;*/
 }
 
 

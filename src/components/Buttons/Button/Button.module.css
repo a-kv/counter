@@ -1,20 +1,15 @@
-.App {
+.button {
   display: flex;
-  flex-direction: column;
+
   text-align: center;
   justify-content: center;
-  background-color: #282c34;
-  color: #61dafb;
-  height: 100vh;
+  /*color: #282c34;*/
+  /*background-color: #61dafb;*/
+  border-radius: 5px;
+  border: 0px;
+  width: 50px;
+  height: 25px;
 
-
-  border-color: #61dafb;
-
-}
-
-.red{
-  color: red;
-  font-size: 1.6em;
 }
 
 
