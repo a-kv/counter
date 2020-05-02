@@ -8,7 +8,6 @@ const Buttons = (props) => {
         <div className={classes.buttons}>
             <Button  disabled={props.disabledInc} name={'inc'} onClick={props.onClick}/>
             <Button  disabled={props.disabledRes} name={'reset'} onClick={props.reset}/>
-
         </div>
     )
 

@@ -24,20 +24,19 @@ class App extends React.Component {
     }
 
 
-
-
     render() {
-        let styleCounter = this.state.counter === this.state.maxCounter ? 'red': '';
+        let styleCounter = this.state.counter === this.state.maxCounter ? 'red' : '';
         let disabledInc = this.state.counter === this.state.maxCounter;
         let disabledRes = this.state.counter === 0;
 
         return (
 
             <div className="App">
-                <Display style={styleCounter} value={this.state.counter}/>
-                <Buttons  disabledInc={disabledInc} disabledRes={disabledRes}
-                         onClick={this.inc} reset={this.reset}/>
-
+                <div className='container-counter'>
+                    <Display style={styleCounter} value={this.state.counter}/>
+                    <Buttons disabledInc={disabledInc} disabledRes={disabledRes}
+                             onClick={this.inc} reset={this.reset}/>
+                </div>
 
             </div>
         );
