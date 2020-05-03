@@ -1,6 +1,6 @@
 .App {
   display: flex;
-
+  flex-direction: column;
   text-align: center;
   align-items: center;
   justify-content: space-evenly;
@@ -16,6 +16,10 @@
 
 .red{
   color: red;
-  font-size: 1.6em;
+  font-size: 1.3em;
+}
+.red-border{
+  background-color: #fd7373;
+  border: 1px solid red;
 }
 

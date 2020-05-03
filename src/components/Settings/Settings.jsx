@@ -1,5 +1,4 @@
 import React from 'react';
-import Display from "../Display/Display";
 import classes from "./Settings.module.css";
 import Button from "../Buttons/Button/Button";
 import DisplaySet from "./DisplaySet/DisplaySet";
@@ -12,6 +11,7 @@ const Settings = (props) => {
         <div className={classes.container}>
 
             <DisplaySet
+                styleInput={props.styleInput}
                 onChangeMax={props.onChangeMax}
                 onChangeMin={props.onChangeMin}
                 state={props.state}

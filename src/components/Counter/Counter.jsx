@@ -11,7 +11,7 @@ const Counter = (props) => {
             <div className={classes.container}>
 
                 <Display
-                    error={props.error}
+
                     styleCounter={props.styleCounter}
                     value={props.value}
                     disabledSet={props.disabledSet}
