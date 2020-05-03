@@ -1,9 +1,42 @@
-.display {
+.displayCounter {
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
   color: #282c34;
+  background-color: #61dafb;
+  max-width: 430px;
+  height: 160px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 1em;
+
+}
+
+.red{
+  color: red;
+  font-size: 1.6em;
+}
+.displayText{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #282c34;
+  background-color: #61dafb;
+  max-width: 430px;
+  height: 160px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 1em;
+
+}
+.displayError{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #a80000;
   background-color: #61dafb;
   max-width: 430px;
   height: 160px;

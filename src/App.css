@@ -1,11 +1,11 @@
 .App {
   display: flex;
-  flex-direction: column;
+
   text-align: center;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: #282c34;
-  color: #61dafb;
+  color: #282c34;
   height: 100vh;
   font-size: 50px;
   font-weight: bold;
@@ -13,17 +13,6 @@
 
 }
 
-.container-counter{
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  /*align-items: center;*/
-  border: #61dafb 2px solid;
-  border-radius: 10px;
-  width: 400px;
-  height: 300px;
-}
 
 .red{
   color: red;

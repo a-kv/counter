@@ -1,0 +1,16 @@
+.display {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  color: #61dafb;
+  background-color: #282c34;
+  max-width: 430px;
+  height: 250px;
+  margin: 10px;
+  border: #61dafb 2px solid;
+  border-radius: 10px;
+  font-size: 0.3em;
+
+}
