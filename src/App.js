@@ -12,11 +12,16 @@ class App extends React.Component {
         minValue: 0
     }
 
-    // если для maxValue и minValue: "", то при увеличении счетчик работает со значениями как со строками 21111
+    componentDidMount() {
+        let str = localStorage.getItem('counter');
+        let obj = JSON.parse(str)
+        this.setState(obj)
+    }
+
     inc = () => {
         if (this.state.currentValue < this.state.maxValue) {
             this.setState( // можно ли чем-то заменить Number
-                {currentValue: Number(this.state.currentValue) + Number(this.state.stepCounter)});
+                {currentValue: Number(this.state.currentValue) + this.state.stepCounter});
 
         }
     }
@@ -27,15 +32,20 @@ class App extends React.Component {
 
     changeMaxValue = (e) => {
         let newValue = Number(e.currentTarget.value);
-        if (newValue < 0 || newValue <= this.state.minValue || this.state.minValue < 0 ) {
+        if (newValue < 0 || newValue <= this.state.minValue || this.state.minValue < 0) {
             this.setState({
                 maxValue: newValue,
                 currentValue: 'Incorrect value'
+            }, () => {
+                this.saveState()
             })
         } else {
             this.setState({
                 maxValue: newValue,
+                //maxValue: localStorage.setItem('maxValue', newValue),
                 currentValue: 'Enter value and press \'set\''
+            }, () => {
+                this.saveState()
             })
         }
     }
@@ -46,26 +56,36 @@ class App extends React.Component {
             this.setState({
                 minValue: newMinValue,
                 currentValue: 'Incorrect value'
+            }, () => {
+                this.saveState()
             })
         } else {
             this.setState({
                 minValue: newMinValue,
+                // minValue: localStorage.setItem('minValue', newMinValue),
                 currentValue: 'Enter value and press \'set\''
+            }, () => {
+                this.saveState()
             })
         }
     }
 
     set = () => {
-        // this.setState({minCounter: this.state.minValue});
-        // this.setState({maxCounter: this.state.maxValue});
-        this.setState({currentValue: this.state.minValue})
+        this.setState({
+            currentValue: this.state.minValue
+        })
     }
-    // this.state.minCounter === this.state.minValue && this.state.maxCounter === this.state.maxValue
+
+    saveState = () => {
+        let ssd = JSON.stringify(this.state)
+        localStorage.setItem('counter', ssd)
+    }
+
     render = () => {
-        let disabledSet =  this.state.maxValue === this.state.minValue || this.state.minValue < 0 || this.state.maxValue < 0 || this.state.minValue > this.state.maxValue;
+        let disabledSet = this.state.maxValue === this.state.minValue || this.state.minValue < 0 || this.state.maxValue < 0 || this.state.minValue > this.state.maxValue;
         let styleCounter = this.state.currentValue === this.state.maxValue || this.state.currentValue === 'Incorrect value' ? 'red' : '';
-        let styleInput = this.state.currentValue === 'Incorrect value' ? 'red-border' : '';
-        let disabledInc =  this.state.currentValue === this.state.maxValue || this.state.currentValue === 'Incorrect value' || this.state.currentValue === 'Enter value and press \'set\''  ;
+        let styleInput = this.state.currentValue === 'Incorrect value' ? 'red-border' : ''; //ok
+        let disabledInc = this.state.currentValue === this.state.maxValue || this.state.currentValue === 'Incorrect value' || this.state.currentValue === 'Enter value and press \'set\'';
         let disabledRes = this.state.currentValue === this.state.minValue || this.state.currentValue === 'Incorrect value' || this.state.currentValue === 'Enter value and press \'set\'';
 
         return (
@@ -84,9 +104,8 @@ class App extends React.Component {
                 </div>
                 <div className='counter'>
                     <Counter
-                        changeStatus={this.changeStatus}
                         styleCounter={styleCounter}
-                        value={this.state.currentValue}
+                        value={this.state.currentValue} //??
                         disabledInc={disabledInc}
                         disabledRes={disabledRes}
                         disabledSet={disabledSet}
