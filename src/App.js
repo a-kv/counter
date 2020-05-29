@@ -9,7 +9,8 @@ class App extends React.Component {
         currentValue: 0,
         stepCounter: 1,
         maxValue: 5,
-        minValue: 0
+        minValue: 0,
+        setButtonDisabled: false
     }
 
     componentDidMount() {
@@ -35,7 +36,9 @@ class App extends React.Component {
         if (newValue < 0 || newValue <= this.state.minValue || this.state.minValue < 0) {
             this.setState({
                 maxValue: newValue,
-                currentValue: 'Incorrect value'
+                currentValue: 'Incorrect value',
+                setButtonDisabled: true
+
             }, () => {
                 this.saveState()
             })
@@ -43,7 +46,8 @@ class App extends React.Component {
             this.setState({
                 maxValue: newValue,
                 //maxValue: localStorage.setItem('maxValue', newValue),
-                currentValue: 'Enter value and press \'set\''
+                currentValue: 'Enter value and press \'set\'',
+                setButtonDisabled: false
             }, () => {
                 this.saveState()
             })
@@ -55,7 +59,8 @@ class App extends React.Component {
         if (newMinValue < 0 || newMinValue >= this.state.maxValue) {
             this.setState({
                 minValue: newMinValue,
-                currentValue: 'Incorrect value'
+                currentValue: 'Incorrect value',
+                setButtonDisabled: true
             }, () => {
                 this.saveState()
             })
@@ -63,7 +68,8 @@ class App extends React.Component {
             this.setState({
                 minValue: newMinValue,
                 // minValue: localStorage.setItem('minValue', newMinValue),
-                currentValue: 'Enter value and press \'set\''
+                currentValue: 'Enter value and press \'set\'',
+                setButtonDisabled: false
             }, () => {
                 this.saveState()
             })
@@ -82,7 +88,7 @@ class App extends React.Component {
     }
 
     render = () => {
-        let disabledSet = this.state.maxValue === this.state.minValue || this.state.minValue < 0 || this.state.maxValue < 0 || this.state.minValue > this.state.maxValue;
+        // let disabledSet = this.state.maxValue === this.state.minValue || this.state.minValue < 0 || this.state.maxValue < 0 || this.state.minValue > this.state.maxValue;
         let styleCounter = this.state.currentValue === this.state.maxValue || this.state.currentValue === 'Incorrect value' ? 'red' : '';
         let styleInput = this.state.currentValue === 'Incorrect value' ? 'red-border' : ''; //ok
         let disabledInc = this.state.currentValue === this.state.maxValue || this.state.currentValue === 'Incorrect value' || this.state.currentValue === 'Enter value and press \'set\'';
@@ -94,7 +100,7 @@ class App extends React.Component {
                 <div className='settings'>
                     <Settings
                         styleInput={styleInput}
-                        disabledSet={disabledSet}
+                        disabledSet={this.state.setButtonDisabled}
                         onChangeMax={this.changeMaxValue}
                         onChangeMin={this.changeMinValue}
                         state={this.state}
@@ -108,7 +114,7 @@ class App extends React.Component {
                         value={this.state.currentValue} //??
                         disabledInc={disabledInc}
                         disabledRes={disabledRes}
-                        disabledSet={disabledSet}
+                        // disabledSet={disabledSet}
                         onClick={this.inc}
                         reset={this.reset}/>
                 </div>

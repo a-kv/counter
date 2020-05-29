@@ -13,7 +13,7 @@ const Counter = (props) => {
                 <Display
                     styleCounter={props.styleCounter}
                     value={props.value}
-                    disabledSet={props.disabledSet}
+                    // disabledSet={props.disabledSet}
                 />
                 <Buttons
                     disabledInc={props.disabledInc}

@@ -1,6 +1,6 @@
 {
   "name": "counter",
-  "homepage": "https://a-kv.github.io/",
+  "homepage": "https://a-kv.github.io/counter/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
