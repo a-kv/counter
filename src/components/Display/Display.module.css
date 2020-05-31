@@ -6,7 +6,7 @@
   color: #282c34;
   background-color: #61dafb;
   max-width: 430px;
-  height: 160px;
+  height: 200px;
   margin: 10px;
   border-radius: 10px;
   font-size: 1em;
@@ -15,7 +15,7 @@
 
 .red{
   color: red;
-  font-size: 1.6em;
+
 }
 .displayText{
   display: flex;

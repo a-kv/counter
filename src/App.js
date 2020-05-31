@@ -2,97 +2,64 @@ import React from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import Settings from "./components/Settings/Settings";
+import {connect} from "react-redux";
+import {changeMaxValueAC, changeMinValueAC, incCounterAC, resetCounterAC, setValuesAC} from "./redusers/reduser";
 
 class App extends React.Component {
 
-    state = {
-        currentValue: 0,
-        stepCounter: 1,
-        maxValue: 5,
-        minValue: 0,
-        setButtonDisabled: false
-    }
+    // state = {
+    //     currentValue: 0,
+    //     stepCounter: 1,
+    //     maxValue: 5,
+    //     minValue: 0,
+    //     setButtonDisabled: false
+    // }
 
     componentDidMount() {
-        let str = localStorage.getItem('counter');
-        let obj = JSON.parse(str)
-        this.setState(obj)
+        // let str = localStorage.getItem('counter');
+        // let obj = JSON.parse(str)
+        // this.setState(obj)
     }
 
     inc = () => {
-        if (this.state.currentValue < this.state.maxValue) {
-            this.setState( // можно ли чем-то заменить Number
-                {currentValue: Number(this.state.currentValue) + this.state.stepCounter});
-
+        if (this.props.currentValue < this.props.maxValue) {
+            let counter = this.props.currentValue + this.props.stepCounter
+            this.props.incCounter(counter);
         }
     }
 
     reset = () => {
-        this.setState({currentValue: this.state.minValue})
+        let resetCurrentValue = this.props.currentValue;
+        this.props.resetCounter(resetCurrentValue);
     }
 
     changeMaxValue = (e) => {
-        let newValue = Number(e.currentTarget.value);
-        if (newValue < 0 || newValue <= this.state.minValue || this.state.minValue < 0) {
-            this.setState({
-                maxValue: newValue,
-                currentValue: 'Incorrect value',
-                setButtonDisabled: true
-
-            }, () => {
-                this.saveState()
-            })
-        } else {
-            this.setState({
-                maxValue: newValue,
-                //maxValue: localStorage.setItem('maxValue', newValue),
-                currentValue: 'Enter value and press \'set\'',
-                setButtonDisabled: false
-            }, () => {
-                this.saveState()
-            })
-        }
+        let currentValue = Number(e.currentTarget.value);
+            this.props.changeMaxValue(currentValue);
     }
 
     changeMinValue = (e) => {
-        let newMinValue = Number(e.currentTarget.value);
-        if (newMinValue < 0 || newMinValue >= this.state.maxValue) {
-            this.setState({
-                minValue: newMinValue,
-                currentValue: 'Incorrect value',
-                setButtonDisabled: true
-            }, () => {
-                this.saveState()
-            })
-        } else {
-            this.setState({
-                minValue: newMinValue,
-                // minValue: localStorage.setItem('minValue', newMinValue),
-                currentValue: 'Enter value and press \'set\'',
-                setButtonDisabled: false
-            }, () => {
-                this.saveState()
-            })
-        }
+        let currentValue = Number(e.currentTarget.value);
+            this.props.changeMinValue(currentValue)
     }
 
     set = () => {
-        this.setState({
-            currentValue: this.state.minValue
-        })
-    }
+        let minValue = this.props.minValue
+        this.props.setValues(minValue)
+      }
 
     saveState = () => {
-        let ssd = JSON.stringify(this.state)
-        localStorage.setItem('counter', ssd)
+        // let ssd = JSON.stringify(this.props.state)
+        // localStorage.setItem('counter', ssd)
     }
 
+
     render = () => {
-        // let disabledSet = this.state.maxValue === this.state.minValue || this.state.minValue < 0 || this.state.maxValue < 0 || this.state.minValue > this.state.maxValue;
-        let styleCounter = this.state.currentValue === this.state.maxValue || this.state.currentValue === 'Incorrect value' ? 'red' : '';
-        let styleInput = this.state.currentValue === 'Incorrect value' ? 'red-border' : ''; //ok
-        let disabledInc = this.state.currentValue === this.state.maxValue || this.state.currentValue === 'Incorrect value' || this.state.currentValue === 'Enter value and press \'set\'';
-        let disabledRes = this.state.currentValue === this.state.minValue || this.state.currentValue === 'Incorrect value' || this.state.currentValue === 'Enter value and press \'set\'';
+        let disabledSet = this.props.maxValue === this.props.minValue || this.props.minValue < 0 || this.props.maxValue < 0 || this.props.minValue > this.props.maxValue;
+        let styleCounter = this.props.currentValue === this.props.maxValue || this.props.currentValue === 'Incorrect value' ? 'red' : '';
+        let styleInput = this.props.currentValue === 'Incorrect value' ? 'red-border' : ''; //ok
+        let disabledInc = this.props.currentValue === this.props.maxValue || this.props.currentValue === 'Incorrect value' || this.props.currentValue === 'Enter value and press \'set\'';
+        let disabledRes = this.props.currentValue === this.props.minValue || this.props.currentValue === 'Incorrect value' || this.props.currentValue === 'Enter value and press \'set\'';
 
         return (
 
@@ -100,10 +67,12 @@ class App extends React.Component {
                 <div className='settings'>
                     <Settings
                         styleInput={styleInput}
-                        disabledSet={this.state.setButtonDisabled}
+                        disabledSet={this.props.setButtonDisabled}
                         onChangeMax={this.changeMaxValue}
                         onChangeMin={this.changeMinValue}
-                        state={this.state}
+                        maxValue={this.props.maxValue}
+                        minValue={this.props.minValue}
+                        // state={this.props.state}
                         onClick={this.set}
 
                     />
@@ -111,10 +80,10 @@ class App extends React.Component {
                 <div className='counter'>
                     <Counter
                         styleCounter={styleCounter}
-                        value={this.state.currentValue} //??
+                        value={this.props.currentValue} //??
                         disabledInc={disabledInc}
                         disabledRes={disabledRes}
-                        // disabledSet={disabledSet}
+                        disabledSet={disabledSet}
                         onClick={this.inc}
                         reset={this.reset}/>
                 </div>
@@ -122,6 +91,36 @@ class App extends React.Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        currentValue: state.currentValue,
+        stepCounter: state.stepCounter,
+        maxValue: state.maxValue,
+        minValue: state.minValue,
+        setButtonDisabled: state.setButtonDisabled
+    }
 
-export default App;
+}
+const mapDispatchToProps = (dispatch) => {
+    return{
+        incCounter: (currentValue) =>{
+            dispatch(incCounterAC(currentValue))
+        },
+        resetCounter: (resetCurrentValue) => {
+            dispatch(resetCounterAC(resetCurrentValue))
+        },
+        changeMinValue: (currentValue) => {
+            dispatch(changeMinValueAC(currentValue))
+        },
+        changeMaxValue: (currentValue) => {
+            dispatch(changeMaxValueAC(currentValue))
+        },
+        setValues: (minValue) => {
+            dispatch(setValuesAC(minValue))
+        }
+    }
+
+}
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
+export default ConnectedApp;
 

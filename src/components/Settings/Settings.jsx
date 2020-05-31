@@ -14,7 +14,9 @@ const Settings = (props) => {
                 styleInput={props.styleInput}
                 onChangeMax={props.onChangeMax}
                 onChangeMin={props.onChangeMin}
-                state={props.state}
+                // state={props.state}
+                maxValue={props.maxValue}
+                minValue={props.minValue}
                 style={classes.display}
                 value={props.counter}
             />
